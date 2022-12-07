@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import styles from '../styles/Home.module.css'
 
 interface Props {
     meme: Meme;
@@ -7,15 +8,15 @@ interface Props {
 
 const MemeListItem = (props: Props): JSX.Element => {
     const {
-        meme: {id, name, url}
+        meme: {captions, id, name, url}
     } = props;
 
     return (
-        <li>
+        <li className={styles.listItem}>
             <Link
                 href={{
                     pathname: `memes/${id}`,
-                    query: { name: name, imgUrl: url },
+                    query: { captions: captions, imgUrl: url, name: name },
                 }}
             >
                 {name}

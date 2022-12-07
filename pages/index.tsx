@@ -30,7 +30,7 @@ export default function Home() {
         </h1>
 
         {isLoading ? <p>Loading...</p>: <div>
-          <ul>
+          <ul className={styles.listContainer}>
           {data.memes.map((meme: Meme): JSX.Element => <MemeListItem key={meme.id} meme={meme} />)}
           </ul></div>}
       </main>

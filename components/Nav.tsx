@@ -1,8 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
+import styles from '../styles/Home.module.css'
 
 const Nav = () => (
-    <Link href="/">
+    <Link href="/" className={`${styles.nav} ${styles.dBlock}`}>
         Back to home
     </Link>
 );
