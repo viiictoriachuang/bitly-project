@@ -1,21 +1,16 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
-import { useEffect, useState } from 'react'
 import MemeListItem from '../components/MemeListItem';
 
-export default function Home() {
-  const [data, setData] = useState({ memes: [] });
-  const [isLoading, setLoading] = useState(false);
-  useEffect(() => {
-    setLoading(true);
-    fetch('https://api.imgflip.com/get_memes')
-      .then((res => res.json()))
-      .then((data) => {
-        setData(data.data);
-        setLoading(false);
-      })
-  }, []);
+interface Props {
+  data: {
+    data: {
+      memes: Meme[];
+    };
+  };
+}
 
+export default function Home({ data }: Props) {
   return (
     <div className={styles.container}>
       <Head>
@@ -29,11 +24,21 @@ export default function Home() {
           See the top memes of this month
         </h1>
 
-        {isLoading ? <p>Loading...</p>: <div>
+        <div>
           <ul className={styles.listContainer}>
-          {data.memes.map((meme: Meme): JSX.Element => <MemeListItem key={meme.id} meme={meme} />)}
-          </ul></div>}
+          {data.data && data.data.memes && (data.data.memes).map((meme: Meme): JSX.Element => <MemeListItem key={meme.id} meme={meme} />)}
+          </ul></div>
       </main>
     </div>
   )
+}
+
+export async function getStaticProps() {
+  const res = await fetch('https://api.imgflip.com/get_memes')
+  const data = await res.json()
+  return {
+    props: {
+      data,
+    },
+  }
 }
