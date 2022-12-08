@@ -10,6 +10,8 @@ interface Props {
   };
 }
 
+export const headingText = 'See the top memes of this month';
+
 export default function Home({ data }: Props) {
   return (
     <div className={styles.container}>
@@ -21,21 +23,21 @@ export default function Home({ data }: Props) {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          See the top memes of this month
+          {headingText}
         </h1>
 
         <div>
           <ul className={styles.listContainer}>
-          {data.data && data.data.memes && (data.data.memes).map((meme: Meme): JSX.Element => <MemeListItem key={meme.id} meme={meme} />)}
+            {data.data && data.data.memes && (data.data.memes).map((meme: Meme): JSX.Element => <MemeListItem key={meme.id} meme={meme} />)}
           </ul></div>
       </main>
     </div>
-  )
+  );
 }
 
 export async function getStaticProps() {
-  const res = await fetch('https://api.imgflip.com/get_memes')
-  const data = await res.json()
+  const res = await fetch('https://api.imgflip.com/get_memes');
+  const data = await res.json();
   return {
     props: {
       data,
