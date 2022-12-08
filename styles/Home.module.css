@@ -50,9 +50,3 @@ img.meme {
     margin-left: 2rem;
   }
 }
-
-@media (prefers-color-scheme: dark) {
-  .logo img {
-    filter: invert(1);
-  }
-}
